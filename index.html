@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제주도 여행 2026 🍊</title>
+<style>
+  :root {
+    --primary: #FF6B35;
+    --primary-light: #FFF3ED;
+    --primary-dark: #E55A2B;
+    --bg: #FAFAF8;
+    --card: #FFFFFF;
+    --text: #2D2D2D;
+    --text-secondary: #6B7280;
+    --border: #E5E7EB;
+    --accent-blue: #3B82F6;
+    --accent-green: #10B981;
+    --accent-red: #EF4444;
+    --accent-purple: #8B5CF6;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 50%, #FFB088 100%);
+    color: white;
+    padding: 2rem 1.5rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+  }
+
+  .header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .header .subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    position: relative;
+  }
+
+  .header .meta {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    opacity: 0.85;
+    position: relative;
+  }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 0.5rem;
+    border: none;
+    background: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 600;
+  }
+
+  .tab-btn .tab-icon {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+  }
+
+  .tab-content { display: none; padding: 1rem; max-width: 640px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 1.1rem;
+    margin-bottom: 0.8rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .card-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .card-title .icon {
+    font-size: 1rem;
+  }
+
+  /* Info Row */
+  .info-row {
+    display: flex;
+    padding: 0.45rem 0;
+    font-size: 0.88rem;
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .info-row:last-child { border-bottom: none; }
+
+  .info-label {
+    color: var(--text-secondary);
+    min-width: 5.5rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .info-value {
+    font-weight: 500;
+    color: var(--text);
+    word-break: keep-all;
+  }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 1.8rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.55rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: #E5E7EB;
+    border-radius: 1px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.25rem;
+    top: 0.45rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--primary);
+  }
+
+  .timeline-item.empty::before {
+    background: #D1D5DB;
+    box-shadow: 0 0 0 2px #D1D5DB;
+  }
+
+  .timeline-date {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 0.15rem;
+  }
+
+  .timeline-item.empty .timeline-date {
+    color: var(--text-secondary);
+  }
+
+  .timeline-events {
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  .timeline-event {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.2rem 0;
+    align-items: flex-start;
+  }
+
+  .timeline-event .time {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    min-width: 3.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timeline-placeholder {
+    color: #9CA3AF;
+    font-style: italic;
+    font-size: 0.84rem;
+    padding: 0.5rem 0.8rem;
+    background: #F9FAFB;
+    border-radius: 8px;
+    border: 1px dashed #D1D5DB;
+    text-align: center;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .badge-flight { background: #DBEAFE; color: #1D4ED8; }
+  .badge-van { background: #FEF3C7; color: #92400E; }
+  .badge-car { background: #D1FAE5; color: #065F46; }
+
+  /* Emergency */
+  .emergency-number {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 0.88rem;
+  }
+  .emergency-number:last-child { border-bottom: none; }
+  .emergency-number .num {
+    font-weight: 700;
+    font-size: 1rem;
+    min-width: 3.2rem;
+    color: var(--accent-red);
+  }
+  .emergency-number .desc {
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+  }
+
+  .hospital-item {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .hospital-item:last-child { border-bottom: none; }
+  .hospital-name { font-weight: 600; font-size: 0.88rem; }
+  .hospital-detail { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.1rem; }
+
+  /* Placeholder */
+  .placeholder {
+    padding: 0.7rem;
+    background: #F9FAFB;
+    border: 1px dashed #D1D5DB;
+    border-radius: 8px;
+    color: #9CA3AF;
+    font-size: 0.84rem;
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Map link */
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-top: 0.3rem;
+  }
+  .map-link:hover { text-decoration: underline; }
+
+  /* Section divider */
+  .section-gap { height: 0.4rem; }
+
+  /* Restaurant placeholder */
+  .restaurant-coming {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #FFF7ED, #FEF3C7);
+    border-radius: 12px;
+    border: 1px dashed #F59E0B;
+    color: #92400E;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: #9CA3AF;
+  }
+
+  /* Flight card */
+  .flight-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .flight-card:last-child { border-bottom: none; }
+
+  .flight-route {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .flight-city {
+    text-align: center;
+  }
+  .flight-city .code { font-weight: 700; font-size: 1rem; }
+  .flight-city .time { font-size: 0.78rem; color: var(--text-secondary); }
+
+  .flight-arrow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+  }
+  .flight-arrow .line {
+    width: 100%;
+    height: 1px;
+    background: #D1D5DB;
+    position: relative;
+  }
+  .flight-arrow .line::after {
+    content: '✈';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--card);
+    padding: 0 0.3rem;
+    font-size: 0.9rem;
+  }
+  .flight-arrow .duration {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+  }
+
+  .flight-info-side {
+    text-align: right;
+    font-size: 0.78rem;
+  }
+  .flight-info-side .date { font-weight: 600; color: var(--text); }
+  .flight-info-side .ref { color: var(--text-secondary); margin-top: 0.1rem; }
+
+  @media (max-width: 400px) {
+    .header h1 { font-size: 1.35rem; }
+    .info-label { min-width: 4.5rem; font-size: 0.82rem; }
+    .info-value { font-size: 0.82rem; }
+    .tab-btn { font-size: 0.72rem; padding: 0.65rem 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 비밀번호 잠금 화면 -->
+<div id="lockScreen" style="
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#FF6B35 0%,#FF8F5E 50%,#FFB088 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+">
+  <div style="text-align:center;color:white;margin-bottom:2rem;">
+    <div style="font-size:3rem;margin-bottom:0.5rem;">🍊</div>
+    <div style="font-size:1.4rem;font-weight:700;">제주도 여행</div>
+    <div style="font-size:0.85rem;opacity:0.85;margin-top:0.3rem;">2026. 4. 2 — 4. 5</div>
+  </div>
+  <div style="background:white;border-radius:16px;padding:1.5rem;width:280px;box-shadow:0 8px 32px rgba(0,0,0,0.15);">
+    <div style="text-align:center;font-size:0.85rem;color:#6B7280;margin-bottom:1rem;">비밀번호를 입력하세요</div>
+    <input id="pwInput" type="password" inputmode="numeric" maxlength="10" placeholder="••••••"
+      style="width:100%;padding:0.75rem;border:2px solid #E5E7EB;border-radius:10px;font-size:1.1rem;
+      text-align:center;outline:none;letter-spacing:0.3em;box-sizing:border-box;"
+      onfocus="this.style.borderColor='#FF6B35'" onblur="this.style.borderColor='#E5E7EB'"
+    >
+    <button onclick="checkPassword()" style="
+      width:100%;margin-top:0.8rem;padding:0.75rem;border:none;border-radius:10px;
+      background:#FF6B35;color:white;font-size:0.95rem;font-weight:600;cursor:pointer;
+    ">확인</button>
+    <div id="pwError" style="text-align:center;color:#EF4444;font-size:0.8rem;margin-top:0.6rem;display:none;">
+      비밀번호가 틀렸습니다
+    </div>
+  </div>
+</div>
+
+<div id="mainContent" style="display:none;">
+
+<div class="header">
+  <h1>🍊 제주도 여행</h1>
+  <div class="subtitle">2026. 4. 2(목) — 4. 5(일) · 3박 4일</div>
+  <div class="meta">
+    <span>👨‍👩‍👧‍👦 성인 4 + 영아 2</span>
+    <span>🏨 제주 신화월드</span>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('schedule')">
+    <span class="tab-icon">📅</span>일정
+  </button>
+  <button class="tab-btn" onclick="switchTab('transport')">
+    <span class="tab-icon">✈️</span>교통/렌탈
+  </button>
+  <button class="tab-btn" onclick="switchTab('stay')">
+    <span class="tab-icon">🏨</span>숙소
+  </button>
+  <button class="tab-btn" onclick="switchTab('food')">
+    <span class="tab-icon">🍽️</span>식당
+  </button>
+  <button class="tab-btn" onclick="switchTab('emergency')">
+    <span class="tab-icon">🏥</span>비상
+  </button>
+</div>
+
+<!-- ===== 일정 ===== -->
+<div id="schedule" class="tab-content active">
+  <div class="card">
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">DAY 1 — 4/2(목)</div>
+        <div class="timeline-events">
+          <div class="timeline-event"><span class="time">08:00</span><span>철산역 출발 → 김포공항 (밴)</span></div>
+          <div class="timeline-event"><span class="time">10:40</span><span>김포 → 제주 항공편 출발</span></div>
+          <div class="timeline-event"><span class="time">11:55</span><span>제주공항 도착</span></div>
+          <div class="timeline-event"><span class="time">12:30</span><span>렌터카 픽업 + 샤워핸들 수령 (퓨어베베, 제주시 오라로 9)</span></div>
+          <div class="timeline-event"><span class="time">15:00~</span><span>신화빌라스 체크인 · 짐풀기</span></div>
+          <div class="timeline-event"><span class="time">이후</span><span>장보기 (근처 마트)</span></div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">DAY 2 — 4/3(금)</div>
+        <div class="timeline-events">
+          <div class="timeline-event"><span class="time">종일</span><span>📸 사진 촬영 (기사님이 당일 장소 공유 예정)</span></div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">DAY 3 — 4/4(토)</div>
+        <div class="timeline-events">
+          <div class="timeline-event"><span class="time">오전</span><span>신화월드 단지 둘러보기</span></div>
+          <div class="timeline-event"><span class="time">오후</span><span>🌼 유채꽃 보러 가기</span></div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">DAY 4 — 4/5(일)</div>
+        <div class="timeline-events">
+          <div class="timeline-event"><span class="time">~11:00</span><span>퇴실 (체크아웃)</span></div>
+          <div class="timeline-event"><span class="time">~15:00</span><span>렌터카 반납 + 샤워핸들 반납 (퓨어베베)</span></div>
+          <div class="timeline-event"><span class="time">15:20</span><span>제주 → 김포 출발 (KE1244)</span></div>
+          <div class="timeline-event"><span class="time">16:35</span><span>김포공항 도착 → 밴 픽업</span></div>
+          <div class="timeline-event"><span class="time">이후</span><span>철산역 도착</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== 교통 ===== -->
+<div id="transport" class="tab-content">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✈️</span> 항공편</div>
+
+    <div class="flight-card">
+      <div class="flight-route">
+        <div class="flight-city"><div class="code">GMP</div><div class="time">10:40</div></div>
+        <div class="flight-arrow">
+          <div class="duration">1h 15m</div>
+          <div class="line"></div>
+        </div>
+        <div class="flight-city"><div class="code">CJU</div><div class="time">11:55</div></div>
+      </div>
+      <div class="flight-info-side">
+        <div class="date">4/2(목) 가는편</div>
+        <div class="ref">예약 DVWORM</div>
+      </div>
+    </div>
+
+    <div class="flight-card">
+      <div class="flight-route">
+        <div class="flight-city"><div class="code">CJU</div><div class="time">15:20</div></div>
+        <div class="flight-arrow">
+          <div class="duration">1h 15m</div>
+          <div class="line"></div>
+        </div>
+        <div class="flight-city"><div class="code">GMP</div><div class="time">16:35</div></div>
+      </div>
+      <div class="flight-info-side">
+        <div class="date">4/5(일) 오는편</div>
+        <div class="ref">KE1244 / DXYQNN</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🚐</span> 공항 밴 — 가는 날 (4/2)</div>
+    <div class="info-row"><span class="info-label">출발시간</span><span class="info-value">08:00</span></div>
+    <div class="info-row"><span class="info-label">출발지</span><span class="info-value">철산역 롯데캐슬앤SKVIEW 클래스티지</span></div>
+    <div class="info-row"><span class="info-label">도착지</span><span class="info-value">김포국제공항 국내선</span></div>
+    <div class="info-row"><span class="info-label">차량</span><span class="info-value">기아 카니발 4세대 화이트<br>서울 38아 6176</span></div>
+    <div class="info-row"><span class="info-label">기사</span><span class="info-value">이준만 기사님</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🚐</span> 공항 밴 — 오는 날 (4/5) · JD제이디콜밴</div>
+    <div class="info-row"><span class="info-label">픽업</span><span class="info-value">KE1244 도착(16:35) 연계 픽업</span></div>
+    <div class="info-row"><span class="info-label">구간</span><span class="info-value">김포공항 → 철산역 롯데캐슬 클래스티지</span></div>
+    <div class="info-row"><span class="info-label">탑승</span><span class="info-value">성인 4 + 영유아 2 / 캐리어 2개</span></div>
+    <div class="info-row"><span class="info-label">담당</span><span class="info-value">정은주 <a href="tel:010-7250-2555" style="color:var(--accent-blue);text-decoration:none;">010-7250-2555</a></span></div>
+    <div class="info-row"><span class="info-label">주문번호</span><span class="info-value">2026032871671841</span></div>
+    <div class="info-row"><span class="info-label">결제금액</span><span class="info-value">60,500원</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🚗</span> 렌터카 — 카모아 (더세이프렌터카 본사)</div>
+    <div class="info-row"><span class="info-label">차종</span><span class="info-value">카니발 4세대 F/L 9인승</span></div>
+    <div class="info-row"><span class="info-label">픽업</span><span class="info-value">4/2(목) 12:30</span></div>
+    <div class="info-row"><span class="info-label">반납</span><span class="info-value">4/5(일) 15:00</span></div>
+    <div class="info-row"><span class="info-label">예약번호</span><span class="info-value">RB2033399</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🚿</span> 샤워핸들 렌탈 — 퓨어베베</div>
+    <div class="info-row"><span class="info-label">대여</span><span class="info-value">4/2(목) 12:30 ~ 반납 4/5(일) 15:00</span></div>
+    <div class="info-row"><span class="info-label">품목</span><span class="info-value">샤워핸들 1개</span></div>
+    <div class="info-row"><span class="info-label">매장주소</span><span class="info-value">제주시 오라로 9</span></div>
+    <div class="info-row"><span class="info-label">영업시간</span><span class="info-value">09:00~18:00 (영업 외 시간 무인수령/셀프장착)</span></div>
+    <div style="margin-top:0.3rem;font-size:0.78rem;color:var(--text-secondary);">수령 시 전화번호 뒷 4자리 말씀 · 매장 건물 뒤 주차</div>
+  </div>
+</div>
+
+<!-- ===== 숙소 ===== -->
+<div id="stay" class="tab-content">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏨</span> 숙소 — 제주 신화빌라스 5단지</div>
+    <div class="info-row"><span class="info-label">주소</span><span class="info-value">서귀포시 안덕면 신화역사로 304번길 38</span></div>
+    <div class="info-row"><span class="info-label">위치참고</span><span class="info-value">공항에서 33km (차량 약 40분) · 중문에서 13km (약 20분)</span></div>
+    <div class="info-row"><span class="info-label">예약번호</span><span class="info-value placeholder" style="background:none;border:none;padding:0;font-size:0.85rem;">추가 예정</span></div>
+    <div class="info-row"><span class="info-label">관리업체</span><span class="info-value">뷰틱스 <a href="tel:010-5032-1638" style="color:var(--accent-blue);text-decoration:none;">010-5032-1638</a></span></div>
+    <div class="info-row"><span class="info-label">입퇴실</span><span class="info-value">입실 15:00 이후 / 퇴실 11:00까지</span></div>
+    <div class="info-row"><span class="info-label">규모</span><span class="info-value">약 46평 · 침실3(침대3) · 욕실2 · 거실 · 주방 · 테라스</span></div>
+    <div class="info-row"><span class="info-label">정원</span><span class="info-value">기본 5명 (추가 침구류 1세트 2만원, 관리업체에 사전 요청)</span></div>
+    <div class="info-row"><span class="info-label">비품</span><span class="info-value">TV, Wi-Fi, 전자레인지, 냉장고, 전기밥솥, 청소기, 헤어드라이기, 어매니티</span></div>
+    <div class="info-row"><span class="info-label">차량등록</span><span class="info-value"><a href="tel:010-4277-8488" style="color:var(--accent-blue);text-decoration:none;">010-4277-8488</a> (평일 09~18시, 주말은 사전등록 권장)</span></div>
+    <div class="info-row"><span class="info-label">전자레인지</span><span class="info-value">1층 라벨라에 위치</span></div>
+    <div class="info-row"><span class="info-label">카시트/유아</span><span class="info-value placeholder" style="background:none;border:none;padding:0;font-size:0.85rem;">확인 필요</span></div>
+    <div style="margin-top:0.5rem;">
+      <a class="map-link" href="https://map.naver.com/v5/search/제주%20신화월드" target="_blank">📍 네이버 지도에서 보기</a>
+    </div>
+    <div style="margin-top:0.4rem;padding:0.5rem 0.7rem;background:#FEF3C7;border-radius:8px;font-size:0.78rem;color:#92400E;">
+      ⚠️ 투숙 중 객실정비(청소·수건·어매니티) 미제공 · 단지 내 금연 · 반려동물 출입 불가 · 불꽃 조리기구 반입 금지
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎡</span> 부대시설 (회원카드 혜택)</div>
+    <div class="hospital-item">
+      <div class="hospital-name">신화테마파크 / 신화워터파크</div>
+      <div class="hospital-detail">회원카드 1장당 1명, 1일 1회 무료 입장 · 운영시간 홈페이지 참고</div>
+    </div>
+    <div class="hospital-item">
+      <div class="hospital-name">탐모라 수영장 / 찜질방 / 피트니스</div>
+      <div class="hospital-detail">서머셋 클럽하우스 · 09:00~21:00 · 회원카드 1일 1회 무료</div>
+    </div>
+    <div class="hospital-item">
+      <div class="hospital-name">단지 내 식음업장</div>
+      <div class="hospital-detail">25% 할인 (회원카드 지참, 직영 매장 한정)</div>
+    </div>
+    <div style="margin-top:0.4rem;font-size:0.78rem;color:var(--text-secondary);">※ 체크아웃 당일 이용 불가 · 5명 초과 시 별도 현장 결제</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🦁</span> 모모쥬동물원 (신화월드 내)</div>
+    <div class="info-row"><span class="info-label">위치</span><span class="info-value">신화월드 테마파크 내부</span></div>
+    <div class="info-row"><span class="info-label">운영시간</span><span class="info-value">매일 10:00~19:00 (이용 2시간 제한)</span></div>
+    <div class="info-row"><span class="info-label">입장료</span><span class="info-value">현장 18,000원 / 네이버 예약 16,000원</span></div>
+    <div class="info-row"><span class="info-label">전화</span><span class="info-value"><a href="tel:0507-1399-5061" style="color:var(--accent-blue);text-decoration:none;">0507-1399-5061</a></span></div>
+    <div style="margin-top:0.3rem;font-size:0.78rem;color:var(--text-secondary);">주차 가능 · 먹이(야채/지렁이 등) 현장 구매</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🗺️</span> 네이버 지도 즐겨찾기</div>
+    <div class="placeholder">공유 링크 추가 예정</div>
+  </div>
+</div>
+
+<!-- ===== 식당 ===== -->
+<div id="food" class="tab-content">
+  <div class="card">
+    <div class="restaurant-coming">🍽️ 식당 정보 추가 예정</div>
+  </div>
+</div>
+
+<!-- ===== 비상 ===== -->
+<div id="emergency" class="tab-content">
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏥</span> 주요 병원 (응급실 24시간)</div>
+    <div class="hospital-item">
+      <div class="hospital-name">서귀포의료원 <span style="font-size:0.72rem;color:var(--primary);font-weight:600;">숙소 최근접</span></div>
+      <div class="hospital-detail"><a href="tel:064-730-3000" style="color:var(--accent-blue);text-decoration:none;">064-730-3000</a> (대표) · <a href="tel:064-730-3001" style="color:var(--accent-blue);text-decoration:none;">064-730-3001</a> (응급)</div>
+      <div class="hospital-detail">서귀포시 장수로 47 · 소아청소년과 있음</div>
+      <div class="hospital-detail">외래: 평일 08:30~17:30 (점심 12:30~13:30) · 응급실 24시간</div>
+    </div>
+    <div class="hospital-item">
+      <div class="hospital-name">제주한라병원 <span style="font-size:0.72rem;color:var(--accent-blue);font-weight:600;">권역응급의료센터</span></div>
+      <div class="hospital-detail"><a href="tel:064-740-5000" style="color:var(--accent-blue);text-decoration:none;">064-740-5000</a> (대표) · <a href="tel:064-740-5312" style="color:var(--accent-blue);text-decoration:none;">064-740-5312</a> (응급)</div>
+      <div class="hospital-detail">제주시 도령로 65 · 소아청소년과 있음</div>
+      <div class="hospital-detail">응급의료센터 24시간 · 권역외상센터 · 닥터헬기 보유</div>
+    </div>
+    <div class="hospital-item">
+      <div class="hospital-name">제주대학교병원</div>
+      <div class="hospital-detail"><a href="tel:064-717-1114" style="color:var(--accent-blue);text-decoration:none;">064-717-1114</a> (대표)</div>
+      <div class="hospital-detail">제주시 아란13길 15 · 소아청소년과 있음</div>
+      <div class="hospital-detail">응급실 24시간 (30병상)</div>
+    </div>
+    <div style="margin-top:0.6rem;padding:0.5rem 0.7rem;background:#FEF3C7;border-radius:8px;font-size:0.78rem;color:#92400E;">
+      💡 야간/휴일 약국 찾기: <a href="tel:129" style="color:var(--accent-blue);text-decoration:none;font-weight:600;">129</a> (보건복지콜센터) 또는 E-GEN 앱
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">👥</span> 일행 연락처</div>
+    <div class="info-row"><span class="info-label">정은주</span><span class="info-value"><a href="tel:010-7250-2555" style="color:var(--accent-blue);text-decoration:none;">010-7250-2555</a></span></div>
+    <div class="info-row"><span class="info-label">김태옥</span><span class="info-value"><a href="tel:010-8785-5807" style="color:var(--accent-blue);text-decoration:none;">010-8785-5807</a></span></div>
+    <div class="info-row"><span class="info-label">조미리</span><span class="info-value"><a href="tel:010-2737-8277" style="color:var(--accent-blue);text-decoration:none;">010-2737-8277</a></span></div>
+    <div class="info-row"><span class="info-label">김명준</span><span class="info-value"><a href="tel:010-4050-0606" style="color:var(--accent-blue);text-decoration:none;">010-4050-0606</a></span></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  마지막 업데이트: 2026. 3. 30
+</div>
+
+</div><!-- /mainContent -->
+
+<script>
+const HASH = '79f90428fedeef209866b4ca8e8900c27bde310472576347497636dce77fa0a1';
+
+async function sha256(text) {
+  const data = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkPassword() {
+  const input = document.getElementById('pwInput').value;
+  const hash = await sha256(input);
+  if (hash === HASH) {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  } else {
+    const err = document.getElementById('pwError');
+    err.style.display = 'block';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').style.borderColor = '#EF4444';
+    setTimeout(() => { err.style.display = 'none'; document.getElementById('pwInput').style.borderColor = '#E5E7EB'; }, 2000);
+  }
+}
+
+document.getElementById('pwInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkPassword();
+});
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
